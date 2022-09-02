@@ -4,8 +4,9 @@ using System.Text;
 
 namespace HashTable
 {
-    class MyMapNode<K,V>
-    {        
+    internal class MyMapNode<K, V>
+    {
+        
         public readonly int size;
         public readonly LinkedList<keyValue<K, V>>[] items;
         public MyMapNode(int size)
@@ -17,6 +18,7 @@ namespace HashTable
         {
             public k key { get; set; }
             public v value { get; set; }
+            public int Frequency { get; set; }
         }
         protected LinkedList<keyValue<K, V>> GetLinkedlist(int position)
         {
@@ -30,11 +32,10 @@ namespace HashTable
             return linkedlist;
         }
         protected int GetArrayPosition(K key)
-        {
+        {            
             int position = key.GetHashCode() % size;            
             return Math.Abs(position);
-        }
-        
+        }        
         public V Get(K key)
         {
             int position = GetArrayPosition(key);
@@ -51,11 +52,12 @@ namespace HashTable
             return default;
         }
         public void Add(K key, V value)
-        {
+        {            
             int position = GetArrayPosition(key);
             LinkedList<keyValue<K, V>> linkedlist = GetLinkedlist(position);
-            keyValue<K, V> item = new keyValue<K, V>() { key = key, value = value };
+            keyValue<K, V> item = new keyValue<K, V>() { key = key, value = value };           
             linkedlist.AddLast(item);
+            Console.WriteLine(item.value + " :- is Added at Index : " + item.key);
         }
         public void Remove(K key)
         {
@@ -76,13 +78,15 @@ namespace HashTable
                 linkedlist.Remove(foundItem);
             }
         }
-        public void GetFrequency(V value)
+            
+        public int GetFrequency(V value)
         {
             int frequency = 0;            
             foreach (LinkedList<keyValue<K, V>> list in items)
-            {
+            {                
                 if (list == null)
-                    continue;              
+                    continue;
+               
                 foreach (keyValue<K, V> obj in list)
                 {
                     if (obj.Equals(null))
@@ -91,7 +95,9 @@ namespace HashTable
                         frequency++;
                 }
             }
-            Console.WriteLine("Frequency of ..{0}.. is {1}", value, frequency);
+            Console.WriteLine(" ");
+            Console.WriteLine("Word '{0}' appears {1} times", value, frequency);
+            return frequency;
         }
     }
 }
