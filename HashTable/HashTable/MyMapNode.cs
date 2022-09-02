@@ -32,10 +32,10 @@ namespace HashTable
             return linkedlist;
         }
         protected int GetArrayPosition(K key)
-        {            
+        {           
             int position = key.GetHashCode() % size;            
             return Math.Abs(position);
-        }        
+        }     
         public V Get(K key)
         {
             int position = GetArrayPosition(key);
@@ -55,9 +55,8 @@ namespace HashTable
         {            
             int position = GetArrayPosition(key);
             LinkedList<keyValue<K, V>> linkedlist = GetLinkedlist(position);
-            keyValue<K, V> item = new keyValue<K, V>() { key = key, value = value };           
-            linkedlist.AddLast(item);
-            Console.WriteLine(item.value + " :- is Added at Index : " + item.key);
+            keyValue<K, V> item = new keyValue<K, V>() { key = key, value = value };            
+            linkedlist.AddLast(item);            
         }
         public void Remove(K key)
         {
@@ -77,27 +76,49 @@ namespace HashTable
             {
                 linkedlist.Remove(foundItem);
             }
-        }
-            
+        }          
         public int GetFrequency(V value)
         {
-            int frequency = 0;            
+            int frequency = 0;          
             foreach (LinkedList<keyValue<K, V>> list in items)
             {                
                 if (list == null)
+                {
                     continue;
-               
+                }                
                 foreach (keyValue<K, V> obj in list)
                 {
                     if (obj.Equals(null))
+                    {
                         continue;
+                    }
                     if (obj.value.Equals(value))
+                    {
                         frequency++;
+                    }
                 }
             }
             Console.WriteLine(" ");
             Console.WriteLine("Word '{0}' appears {1} times", value, frequency);
             return frequency;
+        }
+        public void RemoveValue(V value)
+        {            
+            foreach (LinkedList<keyValue<K, V>> list in items)
+            {
+                if (list == null)
+                    continue;                
+                foreach (keyValue<K, V> obj in list)
+                {
+                    if (obj.Equals(null))
+                        continue;                    
+                    if (obj.value.Equals(value))
+                    {
+                        Remove(obj.key);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

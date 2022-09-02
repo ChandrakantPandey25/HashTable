@@ -9,6 +9,7 @@ namespace HashTable
             Console.WriteLine(" Welcome to HashTable!");
             Console.WriteLine(" Enter 1 to find frequency");
             Console.WriteLine(" Enter 2 to find frequency in paragraph");
+            Console.WriteLine(" Enter 3 to remove avoidable word from paragraph");
             switch (Convert.ToInt32(Console.ReadLine()))
             {
                 case 1:
@@ -36,6 +37,24 @@ namespace HashTable
                     {
                         hashtable.GetFrequency(word);
                     }
+                    Console.ReadLine();
+                    break;
+                case 3:
+
+                    MyMapNode<string, string> hash = new MyMapNode<string, string>(5);                    
+                    String para = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
+                    
+                    string[] paragraph_ = para.Split(' ');                   
+                    int StringLength = paragraph_.Length;                  
+                    for (int i = 0; i < StringLength; i++)
+                    {
+                        hash.Add(Convert.ToString(i), paragraph_[i]);
+                    }
+                    Console.WriteLine(" ");
+                    Console.WriteLine("Removing the word 'avoidable' from the hash table ");
+                    Console.WriteLine("Frequency of 'avoidable' before removal is :" + hash.GetFrequency("avoidable"));
+                    hash.RemoveValue("avoidable");
+                    Console.WriteLine("Frequency of 'avoidable' after removal is :" + hash.GetFrequency("avoidable"));
                     Console.ReadLine();
                     break;
 
