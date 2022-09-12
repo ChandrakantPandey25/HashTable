@@ -4,8 +4,8 @@ using System.Text;
 
 namespace HashTable
 {
-    class MyMapNode<K,V>
-    {        
+    class MyMapNode<K, V>
+    {
         public readonly int size;
         public readonly LinkedList<keyValue<K, V>>[] items;
         public MyMapNode(int size)
@@ -13,28 +13,12 @@ namespace HashTable
             this.size = size;
             this.items = new LinkedList<keyValue<K, V>>[size];
         }
-        public struct keyValue<k, v>
-        {
-            public k key { get; set; }
-            public v value { get; set; }
-        }
-        protected LinkedList<keyValue<K, V>> GetLinkedlist(int position)
-        {
-            LinkedList<keyValue<K, V>> linkedlist = items[position];
-
-            if (linkedlist == null)
-            {
-                linkedlist = new LinkedList<keyValue<K, V>>();
-                items[position] = linkedlist;
-            }
-            return linkedlist;
-        }
         protected int GetArrayPosition(K key)
         {
-            int position = key.GetHashCode() % size;            
+            int position = key.GetHashCode() % size;
             return Math.Abs(position);
         }
-        
+
         public V Get(K key)
         {
             int position = GetArrayPosition(key);
@@ -50,6 +34,7 @@ namespace HashTable
             }
             return default;
         }
+
         public void Add(K key, V value)
         {
             int position = GetArrayPosition(key);
@@ -76,13 +61,31 @@ namespace HashTable
                 linkedlist.Remove(foundItem);
             }
         }
+        protected LinkedList<keyValue<K, V>> GetLinkedlist(int position)
+        {
+            LinkedList<keyValue<K, V>> linkedlist = items[position];
+
+            if (linkedlist == null)
+            {
+                linkedlist = new LinkedList<keyValue<K, V>>();
+                items[position] = linkedlist;
+            }
+            return linkedlist;
+        }
+        public struct keyValue<k, v>
+        {
+            public k key { get; set; }
+            public v value { get; set; }
+        }
+
+
         public void GetFrequency(V value)
         {
-            int frequency = 0;            
+            int frequency = 0;
             foreach (LinkedList<keyValue<K, V>> list in items)
             {
                 if (list == null)
-                    continue;              
+                    continue;
                 foreach (keyValue<K, V> obj in list)
                 {
                     if (obj.Equals(null))

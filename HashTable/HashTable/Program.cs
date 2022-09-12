@@ -18,8 +18,8 @@ namespace HashTable
                     hashTable.Add("3", "not");
                     hashTable.Add("4", "To");
                     hashTable.Add("5", "be");
-                    hashTable.GetFrequency("be");          
-            
+                    hashTable.GetFrequency("To");
+
                     break;
 
                 default:
